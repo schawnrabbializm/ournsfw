@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="name" content="Our NSFW">
+  <meta name="description" content="Discord Our NSFW (schawn)">
+  <meta property="og:url" content="https://schawn.github.io/ournsfw/">
+  <meta property="og:title" content="Our NSFW">
+  <meta property="og:description" content="Discord Our NSFW (schawn)">
+  <meta property="og:image" content="https://i.imgur.com/hP8rcaU.png">
+  <meta name="keywords" content="schawn, Discord, Discord Webhook, NSFW">
+  <meta name="author" content="schawn">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.imgur.com/hP8rcaU.png" type="image/png" />
+  <title>Our NSFW | schâwn</title>
+    <script>
+    var space = "       |                  ";
+    var speed = "200";
+    var pos = 0;
+    var msg = "Our NSFW | schâwn";
+    function Scroll() {
+      document.title = msg.substring(pos, msg.length) + space + msg.substring(0, pos);
+      pos++;
+      if (pos > msg.length) pos = 0;
+      window.setTimeout("Scroll()", speed);
+    }
+  
+    Scroll();
+  </script>
+</head>
+
+<body
+  style="background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0c906811-09c5-49d2-958a-091a77d571dd/decz0e9-4380d52f-7592-4ac1-8d97-08156aac0966.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzBjOTA2ODExLTA5YzUtNDlkMi05NThhLTA5MWE3N2Q1NzFkZFwvZGVjejBlOS00MzgwZDUyZi03NTkyLTRhYzEtOGQ5Ny0wODE1NmFhYzA5NjYuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.rH8PIHUz83cit3Z9xZmtN8MpYvNQstaiOqoqVPwq0SU'); background-repeat: no-repeat; background-size: cover;">
+  <div id="app">
+    <div class="center">
+      <div>
+        <div class="col">
+          <button class="button" v-for="tip in categories" @click="sendNSFW(tip)">{{ tip }}</button>
+        </div>
+      </div>
+      <div style="padding-top: 5rem;">
+        <input style="background-color: #233067;" placeholder="Discord Webhook URL" type="url" v-model="wurl" required></input>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        wurl: "Discord Webhook URL",
+        categories: ["hass 😜", "hmidriff", "pgif 😜", "4k", "hentai 😜", "holo", "hneko", "neko 😜", "hkitsune", "kemonomimi 😜", "anal", "hanal 😜", "gonewild 😜", "ass", "pussy 😜", "thigh", "hthigh 😜", "gah", "coffee", "food 😜", "paizuri", "tentacle 😜", "boobs", "hboobs 😜"/*, "yaoi"*/]
+      },
+      methods: {
+        async sendNSFW(category) {
+          let wURL = this.wurl;
+          let urlRegEx = /^https?:\/\/(canary\.)?(discordapp|discord)\.com\/api\/webhooks\/([^\/]+)\/([^\/]+)$/;
+          if (!wURL || !wURL.length || !urlRegEx.test(wURL)) return alert("Please specify a valid webhook URL!");
+          let response = await fetch(`https://nekobot.xyz/api/image?type=${category}`).then((response) => response.json());
+          if (response) {
+            await fetch(wURL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                embeds: [{
+                  color: 15844367,
+                  image: {
+                    url: response.message
+                  }
+                }]
+              })
+            });
+          };
+        }
+      }
+    });
+  </script>
+
+  <style>
+    * {
+      font-family: "Comic Sans MS";
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: 0;
+    }
+
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .button {
+      border: 2;
+      border-radius: 50px;
+      font-size: 18px;
+      height: 3rem;
+      width: 9rem;
+      background-color: #233067;
+    }
+
+    .button:active {
+      background-color: #000000;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      max-width: 100%;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .center {
+        align-items: flex-start;
+        padding-left: 210px;
+      }
+
+      .col {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .button {
+        width: 7rem;
+      }
+    }
+
+    @media (min-width: 500px) {
+      .button {
+        width: 8rem;
+      }
+    }
+  </style>
+</body>
+
+</html>
